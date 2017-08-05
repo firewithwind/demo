@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.clock-wrapper{
+			width: 250px;
+			height: 250px;
+			border: 1px solid #A3A3A3;
+			border-radius: 50%;
+			margin: -125px auto;
+			position: relative;
+			top: 50%;
+		}
+		.number-wrapper{
+			width: 100%;
+			height: 100%;
+			position: relative;
+			left: -50%;
+		}
+		.pointer-wrapper{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+	</style>
+</head>
+<body>
+<div class="clock">
+	<div class="clock-wrapper">
+	 <div class="number-wrapper"></div>
+	 <div class="pointer-wrapper"></div>
+	</div>
+</div>
+</body>
+<script>
+(function init() {
+	var height = window.innerHeight
+	var width = window.innerWidth
+	var clock = document.querySelector(".clock")
+	clock.style.width = width + 'px'
+	clock.style.height = height	+ 'px'
+	clock.style.lineHeight = height	+ 'px'
+	setClock()
+	setPointer()
+})()
+function setClock() {
+	var rad = Math.PI / 180
+	var clockWrapper = document.querySelector(".number-wrapper")
+	for (var i = 0; i < 60; i ++) {
+		(function(i) {
+			var pointer = document.createElement("div")
+			var deg = (i + 1) * 6
+			pointer.style.position = "absolute"
+			pointer.style.transformOrigin = "125px 126px"
+			pointer.style.background = "#A8A8A8"
+			var left =125 * Math.cos(rad * deg)
+			var top = 125 - 125 * Math.sin(rad * deg)
+			if ((i+1) % 5 === 0) {
+				pointer.style.width = "30px"
+				pointer.style.height = "3px"
+			}
+			else {
+				pointer.style.width = "20px"
+				pointer.style.height = "2px"
+			}
+			pointer.style.transform = `rotate(${deg}deg) translateX(${left}px) translateY(${top}px)`
+			clockWrapper.appendChild(pointer)
+		})(i)
+	}
+}
+function setPointer() {
+	var pointerWrapper = document.querySelector(".pointer-wrapper")
+	var pointH = document.createElement("div")
+	var pointM = document.createElement("div")
+	var pointS = document.createElement("div")
+	pointH.style.width = "80px"
+	pointH.style.height = "4px"
+	pointH.style.background = "#A8A8A8"
+	pointH.style.transformOrigin = "0px 2px"
+	pointH.style.position = "absolute"
+	pointH.style.top = "123px"
+	pointH.style.left = "125px"
+	pointM.style.width = "40px"
+	pointM.style.height = "4px"
+	pointM.style.background = "#A8A8A8"
+	pointM.style.transformOrigin = "0px 2px"
+	pointM.style.position = "absolute"
+	pointM.style.top = "123px"
+	pointM.style.left = "125px"
+	pointS.style.width = "80px"
+	pointS.style.height = "2px"
+	pointS.style.background = "#FF2626"
+	pointS.style.transformOrigin = "0px 1px"
+	pointS.style.position = "absolute"
+	pointS.style.top = "124px"
+	pointS.style.left = "125px"
+	getTime(pointH, pointM, pointS)
+	pointerWrapper.appendChild(pointH)
+	pointerWrapper.appendChild(pointM)
+	pointerWrapper.appendChild(pointS)
+	setInterval(() => {
+		getTime(pointH, pointM, pointS)
+	}, 1000)
+}
+function getTime(pointH, pointM, pointS) {
+		var date = new Date()
+		var hour = date.getHours()
+		var minute = date.getMinutes()
+		var second = date.getSeconds()
+		var angleH = hour * 30 - 90
+		var angleM = minute * 6 - 90
+		var angleS = second * 6 - 90
+		pointH.style.transform = `rotate(${angleH}deg)`
+		pointM.style.transform = `rotate(${angleM}deg)`
+		pointS.style.transform = `rotate(${angleS}deg)`
+}
+</script>
+</html>
