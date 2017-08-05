@@ -115,8 +115,8 @@ function getTime(pointH, pointM, pointS) {
 		var hour = date.getHours()
 		var minute = date.getMinutes()
 		var second = date.getSeconds()
-		var angleH = hour * 30 - 90
-		var angleM = minute * 6 - 90
+		var angleH = hour * 30 + minute / 2 - 90
+		var angleM = minute * 6 + second / 10 - 90
 		var angleS = second * 6 - 90
 		pointH.style.transform = `rotate(${angleH}deg)`
 		pointM.style.transform = `rotate(${angleM}deg)`
