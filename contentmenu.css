@@ -1,0 +1,24 @@
+.rmouse{
+	display: none;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	border-radius: 3px;
+	box-shadow: 0 0 4px #000000;
+	position: absolute;
+}
+.rmouse ul{
+	margin: 0;
+	padding: 0;
+}
+.rmouse li{
+	list-style-type: none;
+	text-indent: 14px;
+	border-bottom: 1px solid #DBDBDB;
+}
+.rmouse li:hover{
+	background: #E4E1E1;
+}
+.rmouse li:last-child{
+	border-bottom: none;
+}
